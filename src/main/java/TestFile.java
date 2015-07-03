@@ -7,6 +7,7 @@ class TestFile {
         boolean value = false;
         if (value = true) {
             //do Something
+            value = false;
         } else {
             //else Do Something
         }
