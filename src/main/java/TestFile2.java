@@ -8,8 +8,6 @@ class TestFile2 {
         if (value = true) {
             //do Something
             value = false;
-        } else {
-            //else Do Something
         }
     }
 }
