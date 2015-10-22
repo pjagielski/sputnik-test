@@ -1,15 +1,16 @@
-class TestFile {
+class TestFile2 {
     public String foo() {
         return "bar";
     }
 
     private static void incorrectAssignmentInIfCondition() {
         boolean value = false;
-        if (value = true) {
+        if (value == true) {
             //do Something
             value = false;
-        } else {
-            //else Do Something 123
+        }
+        if (value == false) {
+          int x = 1;
         }
     }
 }
