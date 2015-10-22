@@ -9,5 +9,8 @@ class TestFile2 {
             //do Something
             value = false;
         }
+        if (value = false) {
+          int x = 1;
+        }
     }
 }
