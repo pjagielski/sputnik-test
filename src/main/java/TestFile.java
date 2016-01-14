@@ -11,4 +11,25 @@ class TestFile {
             //else Do Something
         }
     }
+
+    private static void incorrectComparingToItself() {
+        int x = 342;
+        if (x == x) {
+            // whatever
+        }
+    }
+
+    private static void anotherVariationOfIncorrectComparingToItself() {
+        int x = 342;
+        if (x <= x) {
+            // whatever
+        }
+    }
+
+    private static void onMoreVariationOfIncorrectComparingToItself() {
+        int x = 23422;
+        if (x > x) {
+            // whatever
+        }
+    }
 }
