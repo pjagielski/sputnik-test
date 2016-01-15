@@ -6,9 +6,7 @@ before_install:
 after_success:
   - echo $SOMEVAR && echo $TRAVIS_PULL_REQUEST
   - codecov
-  - wget "https://philanthropist.touk.pl/nexus/service/local/repositories/snapshots/content/pl/touk/sputnik/1.5.2-SNAPSHOT/sputnik-1.5.2-20151021.075710-1-all.jar"
-  -O sputnik.jar && java -jar sputnik.jar --conf sputnik.properties --pullRequestId
-  $TRAVIS_PULL_REQUEST
+  - bash <(curl -s https://raw.githubusercontent.com/TouK/sputnik/saas/sputnik-ci.sh)
 env:
   global:
     secure: GqtHekvpqRZzG7GVwD3WpVQFfMyOum8hPbv7v/8zdLa1iGmWC9AeyTr+t+28YJlHMTqFYyFjAfC37oBaPKNdU9v04c3smEgMejVvg6LPACAjHeuXkFT5o8Oa7gZu73Qx5imUaKWejwYWrWG5+yFHikrYysubTyMzFpwYpu+z7vSOSzgJHV5M/lGvLR2bZv0HpM8jYwzKuRvkP1xJY+09KHCH4kvabbaeUCqcAF+k6sewLZfDLliHGWJiqOt8rXqQbooTViQLP0akUK3eFGHOqpaAqs1DwQ4zioIGCTm+5LJUalKX9tE6TxweyMJWRJGlP8GAXFGLWBi7xHRoKd5E5dk0/CdYtOa4HPo9QmEr4CIge2Mnl+CDGk1B4XCenRf1a59n1qc47/gZwz1LJlUDbnbtNmbpvoyjg41hUf3qKomNEOaeL5D9nmmi2oA6qoqri6a97w35kzzBkp+p/d0YEAO32/M6RNHp7tEneiqYQUxA8J1NUuWZoXJBjtlRIJDmyMYiFcymM7rMNoL7iUN3ZMOv9x4uDRWgUFyA/4tyeN46+renk4zy72Y/SURTC1MBl1LUx/6DqnNYS3tkdNtPhvp0BMbiIvRVmQDnVB4kQwqqHvfIdRE783oB+iw6zi8Lb0paCpTJt2sd/eUDWtantOmhuGwQ9E7eSPV0N1BlqE8=
