@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os, sys, traceback
+import os, sys, traceback, urllib
 
 
 def check_env():
@@ -15,16 +15,23 @@ def check_env():
         print traceback.format_exception(*sys.exc_info())
 
 
-def check_travis_ci():
-    if (os.environ["CI"] == 'true' and os.environ["TRAVIS"] == 'true'):
-        print "Running on Travis CI"
-    else:
-        print "Not running on Travis CI"
+def is_travis_ci():
+    if os.environ["CI"] == 'true' and os.environ["TRAVIS"] == 'true':
+        return True;
+
+
+def download_sputnik_files():
+    if is_travis_ci():
+        if os.environ["api_key"]:
+            print "Downloading sputnik.properties"
+            properties_url = "http://sputnik.touk.pl/conf/"  + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
+            urllib.urlretrieve(properties_url, filename="sputnik.properties")
 
 
 def sputnik_ci():
     check_env()
-    check_travis_ci()
+    download_sputnik_files()
+
 
 sputnik_ci()
 
