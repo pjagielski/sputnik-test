@@ -29,8 +29,12 @@ def download_sputnik_files():
     if is_travis_ci():
         if get_env("api_key"):
             print "Downloading sputnik.properties"
-            properties_url = "http://sputnik.touk.pl/conf/"  + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
+            properties_url = "http://sputnik.touk.pl/conf/" + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
+
+            checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
+            urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
+
         sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
         urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
 
@@ -44,26 +48,5 @@ def sputnik_ci():
     download_sputnik_files()
     print "end"
 
+
 sputnik_ci()
-
-
-
-# #!/bin/bash
-#
-# if [ "$CI" = "true" ] && [ "$TRAVIS" = "true" ];
-# then
-#   echo "Running on Travis CI"
-#   PR="$TRAVIS_PULL_REQUEST"
-# fi
-#
-# if [ "$PR" != "false" ];
-# then
-#   echo "Running on pull request $PR"
-#   if [ ! -z "$api_key" ];
-#   then
-#     echo "Downloading sputnik.properties"
-#     wget -q "http://sputnik.touk.pl/conf/$TRAVIS_REPO_SLUG/sputnik-properties?key=$api_key" -O sputnik.properties
-#   fi
-#   wget "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST" -O sputnik.jar && java -jar sputnik.jar --conf sputnik.properties --pullRequestId $PR
-# fi
-#
