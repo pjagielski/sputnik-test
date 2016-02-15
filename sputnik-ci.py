@@ -2,6 +2,8 @@
 
 import datetime, logging, os, subprocess, sys, traceback, urllib
 
+def configure_logger():
+    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
 
 def check_env():
     print "Check required env variables"
@@ -44,6 +46,7 @@ def download_sputnik_files():
 
 
 def sputnik_ci():
+    configure_logger()
     logging.info('start')
     check_env()
     download_sputnik_files()
