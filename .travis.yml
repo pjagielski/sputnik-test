@@ -3,3 +3,4 @@ jdk:
     - oraclejdk8
 after_success:
 - bash <(curl -s https://raw.githubusercontent.com/TouK/sputnik/saas/sputnik-ci.sh)
+- bash <(/home/msm/sputnik/sputnik/sputnik-ci.sh)
