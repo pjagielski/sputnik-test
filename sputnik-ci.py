@@ -3,7 +3,14 @@
 import datetime, logging, os, subprocess, sys, traceback, urllib
 
 def configure_logger():
-    logging.basicConfig(stream=sys.stdout, level=logging.DEBUG)
+    root = logging.getLogger()
+    root.setLevel(logging.DEBUG)
+
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+    ch.setFormatter(formatter)
+    root.addHandler(ch)
 
 def check_env():
     print "Check required env variables"
