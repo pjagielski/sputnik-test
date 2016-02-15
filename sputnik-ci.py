@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import datetime, os, subprocess, sys, traceback, urllib
+import datetime, logging, os, subprocess, sys, traceback, urllib
 
 
 def check_env():
@@ -37,19 +37,17 @@ def download_sputnik_files():
             urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
 
         print "Downloading sputnik.jar"
-        print "Now: " + datetime.datetime.now()
         sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
         urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
-        print "and Then: " + datetime.datetime.now()
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
 
 
 def sputnik_ci():
-    print "start"
+    logging.info('start')
     check_env()
     download_sputnik_files()
-    print "end"
+    logging.info('end')
 
 
 sputnik_ci()
