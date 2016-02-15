@@ -4,15 +4,21 @@ import os, sys, traceback, urllib
 
 
 def check_env():
-    print "1 - check env variables"
+    print "check required env variables"
+    get_env("CI")
+    get_env("TRAVIS")
+    get_env("TRAVIS_PULL_REQUEST")
+    get_env("TRAVIS_REPO_SLUG")
+
+
+def get_env(single_env):
     try:
-        assert (os.environ["CI"])
-        assert (os.environ["TRAVIS"])
-        assert (os.environ["TRAVIS_PULL_REQUEST"])
-        assert (os.environ["TRAVIS_REPO_SLUG"])
+        assert (os.environ[single_env])
+        return os.environ[single_env]
     except Exception as e:
-        print "Problem while reading env variable", e
+        print "Problem while reading env variable " + single_env
         print traceback.format_exception(*sys.exc_info())
+        return None
 
 
 def is_travis_ci():
@@ -22,7 +28,7 @@ def is_travis_ci():
 
 def download_sputnik_files():
     if is_travis_ci():
-        if os.environ["api_key"]:
+        if get_env["api_key"]:
             print "Downloading sputnik.properties"
             properties_url = "http://sputnik.touk.pl/conf/"  + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
