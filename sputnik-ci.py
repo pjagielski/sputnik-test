@@ -9,6 +9,7 @@ def check_env():
         assert(os.environ["TRAVIS"])
         assert(os.environ["TRAVIS_PULL_REQUEST"])
         assert(os.environ["TRAVIS_REPO_SLUG"])
+        assert(os.environ["BEZSENSU"])
     except Exception as e:
         print "Problem while reading env variable",e
         print traceback.format_exception(*sys.exc_info())
