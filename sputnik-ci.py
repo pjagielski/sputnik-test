@@ -35,9 +35,10 @@ def download_sputnik_files():
 
 
 def sputnik_ci():
+    print "start"
     check_env()
     download_sputnik_files()
-
+    print "end"
 
 sputnik_ci()
 
