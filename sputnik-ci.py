@@ -2,21 +2,29 @@
 
 import os, sys, traceback
 
+
 def check_env():
     print "1 - check env variables"
     try:
-        assert(os.environ["CI"])
-        assert(os.environ["TRAVIS"])
-        assert(os.environ["TRAVIS_PULL_REQUEST"])
-        assert(os.environ["TRAVIS_REPO_SLUG"])
-        assert(os.environ["BEZSENSU"])
+        assert (os.environ["CI"])
+        assert (os.environ["TRAVIS"])
+        assert (os.environ["TRAVIS_PULL_REQUEST"])
+        assert (os.environ["TRAVIS_REPO_SLUG"])
     except Exception as e:
-        print "Problem while reading env variable",e
+        print "Problem while reading env variable", e
         print traceback.format_exception(*sys.exc_info())
+
+
+def check_travis_ci():
+    if (os.environ["CI"] == 'true' and os.environ["TRAVIS"] == 'true'):
+        print "Running on Travis CI"
+    else:
+        print "Not running on Travis CI"
+
 
 def sputnik_ci():
     check_env()
-
+    check_travis_ci()
 
 sputnik_ci()
 
