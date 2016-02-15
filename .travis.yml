@@ -3,4 +3,4 @@ jdk:
     - oraclejdk8
 after_success:
 - bash <(curl -s https://raw.githubusercontent.com/TouK/sputnik/saas/sputnik-ci.sh)
-- bash <(curl -s https://github.com/lordOfSputnik/sputnik-test/blob/sputnikRulesViolated/sputnik-ci-test.sh)
+- bash <(curl -s https://raw.githubusercontent.com/lordOfSputnik/sputnik-test/blob/sputnikRulesViolated/sputnik-ci-test.sh)
