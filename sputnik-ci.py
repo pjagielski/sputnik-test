@@ -28,7 +28,7 @@ def is_travis_ci():
 
 def download_sputnik_files():
     if is_travis_ci():
-        if get_env["api_key"]:
+        if get_env("api_key"):
             print "Downloading sputnik.properties"
             properties_url = "http://sputnik.touk.pl/conf/"  + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
