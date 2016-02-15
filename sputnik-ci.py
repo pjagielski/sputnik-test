@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import os, sys, traceback, urllib
+import os, subprocess, sys, traceback, urllib
 
 
 def check_env():
@@ -17,13 +17,12 @@ def get_env(single_env):
         return os.environ[single_env]
     except Exception as e:
         print "Problem while reading env variable " + single_env
-        print traceback.format_exception(*sys.exc_info())
         return None
 
 
 def is_travis_ci():
     if os.environ["CI"] == 'true' and os.environ["TRAVIS"] == 'true':
-        return True;
+        return True
 
 
 def download_sputnik_files():
@@ -32,6 +31,11 @@ def download_sputnik_files():
             print "Downloading sputnik.properties"
             properties_url = "http://sputnik.touk.pl/conf/"  + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
+        sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
+        urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
+
+        # sputnik.jar && java -jar sputnik.jar --conf sputnik.properties --pullRequestId $PR
+        subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
 
 
 def sputnik_ci():
