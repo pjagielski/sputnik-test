@@ -34,14 +34,14 @@ def download_sputnik_files():
 
 
             print "Downloading checkstyle.xml"
-            print "Now: " + datetime.datetime.now()
             checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
             urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
-            print "and Then: " + datetime.datetime.now()
 
         print "Downloading sputnik.jar"
-        # sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
-        # urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
+        print "Now: " + datetime.datetime.now()
+        sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
+        urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
+        print "and Then: " + datetime.datetime.now()
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
 
