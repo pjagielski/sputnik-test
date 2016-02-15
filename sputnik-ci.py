@@ -32,7 +32,6 @@ def download_sputnik_files():
             properties_url = "http://sputnik.touk.pl/conf/" + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
 
-
             print "Downloading checkstyle.xml"
             checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
             urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
