@@ -5,9 +5,9 @@ import os, sys, traceback
 def check_env():
     print "1 - check env variables"
     try:
-        assert(os.environ["CI"] == "true")
-        assert(os.environ["TRAVIS"] == "true")
-        assert(os.environ["TRAVIS_PULL_REQUEST"] != "false")
+        assert(os.environ["CI"])
+        assert(os.environ["TRAVIS"])
+        assert(os.environ["TRAVIS_PULL_REQUEST"])
         assert(os.environ["TRAVIS_REPO_SLUG"])
     except Exception as e:
         print "Problem while reading env variable",e
