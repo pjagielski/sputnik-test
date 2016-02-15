@@ -8,12 +8,12 @@ def configure_logger():
 
     ch = logging.StreamHandler(sys.stdout)
     ch.setLevel(logging.DEBUG)
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s: %(message)s')
+    formatter = logging.Formatter('[%(levelname)s] %(asctime)s %(message)s')
     ch.setFormatter(formatter)
     root.addHandler(ch)
 
 def check_env():
-    print "Check required env variables"
+    logging.info("Check required env variables")
     get_env("CI")
     get_env("TRAVIS")
     get_env("TRAVIS_PULL_REQUEST")
@@ -25,7 +25,7 @@ def get_env(single_env):
         assert (os.environ[single_env])
         return os.environ[single_env]
     except Exception as e:
-        print "Problem while reading env variable " + single_env
+        logging.error("Problem while reading env variable " + single_env)
         return None
 
 
@@ -37,15 +37,15 @@ def is_travis_ci():
 def download_sputnik_files():
     if is_travis_ci():
         if get_env("api_key"):
-            print "Downloading sputnik.properties"
+            logging.info("Downloading sputnik.properties")
             properties_url = "http://sputnik.touk.pl/conf/" + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
 
-            print "Downloading checkstyle.xml"
+            logging.info("Downloading checkstyle.xml")
             checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
             urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
 
-        print "Downloading sputnik.jar"
+        logging.info("Downloading sputnik.jar")
         sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
         urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
 
