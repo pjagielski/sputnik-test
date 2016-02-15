@@ -1,10 +1,10 @@
 #!/usr/bin/python
 
-import os, subprocess, sys, traceback, urllib
+import datetime, os, subprocess, sys, traceback, urllib
 
 
 def check_env():
-    print "check required env variables"
+    print "Check required env variables"
     get_env("CI")
     get_env("TRAVIS")
     get_env("TRAVIS_PULL_REQUEST")
@@ -32,13 +32,16 @@ def download_sputnik_files():
             properties_url = "http://sputnik.touk.pl/conf/" + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
             urllib.urlretrieve(properties_url, filename="sputnik.properties")
 
+
             print "Downloading checkstyle.xml"
+            print "Now: " + datetime.datetime.now()
             checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
             urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
+            print "and Then: " + datetime.datetime.now()
 
         print "Downloading sputnik.jar"
-        sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
-        urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
+        # sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
+        # urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
 
