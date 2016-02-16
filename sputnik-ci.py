@@ -13,11 +13,13 @@ def configure_logger():
     root.addHandler(ch)
 
 
-def check_env_variables():
+def is_set_every_required_env_variable():
     logging.info("Check required env variables")
-    required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG"]
+    required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG", "asda"]
     for env_var in required_vars:
-        get_env(env_var)
+        if get_env(env_var) is None:
+            return False
+    return True
 
 
 def get_env(single_env):
@@ -34,7 +36,7 @@ def is_travis_ci():
         return True
 
 
-def download_files_run_sputnik():
+def download_files_and_run_sputnik():
     if is_travis_ci():
         if get_env("api_key"):
             logging.info("Downloading sputnik.properties")
@@ -54,8 +56,8 @@ def download_files_run_sputnik():
 
 def sputnik_ci():
     configure_logger()
-    check_env_variables()
-    download_files_run_sputnik()
+    if is_set_every_required_env_variable():
+        download_files_and_run_sputnik()
 
 
 sputnik_ci()
