@@ -34,10 +34,11 @@ def is_set_every_required_env_variable():
 
 def is_travis_ci():
     if get_env("CI") == 'true' and get_env("TRAVIS") == 'true' and get_env("TRAVIS_PULL_REQUEST") != "false":
+        return True
+    else:
         logging.warn("Quit travis continuous integration. Check evn variables CI: " + get_env("CI")
                      + ", TRAVIS: " +  get_env("TRAVIS") + ", TRAVIS_PULL_REQUEST: " + get_env("TRAVIS_PULL_REQUEST"))
-        return True
-    return False
+        return False
 
 
 def download_file(url, file_name):
