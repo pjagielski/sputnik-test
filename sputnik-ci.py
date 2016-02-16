@@ -13,6 +13,15 @@ def configure_logger():
     root.addHandler(ch)
 
 
+def get_env(single_env):
+    try:
+        assert (os.environ[single_env])
+        return os.environ[single_env]
+    except Exception as e:
+        logging.warn("Problem while reading env variable: " + single_env)
+        return None
+
+
 def is_set_every_required_env_variable():
     logging.info("Check required env variables")
     required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG"]
@@ -21,15 +30,6 @@ def is_set_every_required_env_variable():
             logging.error("Env variable " + env_var + " is required to run sputnik")
             return False
     return True
-
-
-def get_env(single_env):
-    try:
-        assert (os.environ[single_env])
-        return os.environ[single_env]
-    except Exception as e:
-        logging.warn("Problem while reading env variable: " + single_env)
-        return None
 
 
 def is_travis_ci():
@@ -50,6 +50,7 @@ def download_files_and_run_sputnik():
         if get_env("api_key"):
             properties_url = "http://sputnik.touk.pl/conf/" + get_env("TRAVIS_REPO_SLUG") + "/sputnik-properties?key=" + get_env("api_key")
             download_file(properties_url, "sputnik.properties")
+
             checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + get_env("api_key")
             download_file(checkstyle_url, "checkstyle.xml")
 
