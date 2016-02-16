@@ -15,7 +15,7 @@ def configure_logger():
 
 def is_set_every_required_env_variable():
     logging.info("Check required env variables")
-    required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG", "asda"]
+    required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG"]
     for env_var in required_vars:
         if get_env(env_var) is None:
             logging.error("Env variable " + env_var + " is required to run sputnik")
@@ -30,11 +30,6 @@ def get_env(single_env):
     except Exception as e:
         logging.warn("Problem while reading env variable: " + single_env)
         return None
-
-
-def is_travis_ci():
-    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true':
-        return True
 
 
 def download_files_and_run_sputnik():
@@ -53,6 +48,11 @@ def download_files_and_run_sputnik():
         urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
+
+
+def is_travis_ci():
+    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true':
+        return True
 
 
 def sputnik_ci():
