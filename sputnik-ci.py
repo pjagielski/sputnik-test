@@ -18,6 +18,7 @@ def is_set_every_required_env_variable():
     required_vars = ["CI", "TRAVIS", "TRAVIS_PULL_REQUEST", "TRAVIS_REPO_SLUG", "asda"]
     for env_var in required_vars:
         if get_env(env_var) is None:
+            logging.error("Env variable " + env_var + " is required to run sputnik")
             return False
     return True
 
