@@ -34,6 +34,7 @@ def is_set_every_required_env_variable():
 
 def is_travis_ci():
     if get_env("CI") == 'true' and get_env("TRAVIS") == 'true' and get_env("TRAVIS_PULL_REQUEST") != "false":
+        logging.info("travis ci")
         return True
     else:
         logging.warn("Quit travis continuous integration. Check evn variables CI: " + get_env("CI")
