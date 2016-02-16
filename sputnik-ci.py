@@ -37,20 +37,24 @@ def is_travis_ci():
         return True
 
 
+def download_file(url, file_name):
+    logging.info("Downloading " + file_name)
+    try:
+        urllib.urlretrieve(url, filename=file_name)
+    except Exception as e:
+        logging.error("Problem while downloading " + file_name + " from " + url)
+
+
 def download_files_and_run_sputnik():
     if is_travis_ci():
         if get_env("api_key"):
-            logging.info("Downloading sputnik.properties")
-            properties_url = "http://sputnik.touk.pl/conf/" + os.environ["TRAVIS_REPO_SLUG"] + "/sputnik-properties?key=" + os.environ["api_key"]
-            urllib.urlretrieve(properties_url, filename="sputnik.properties")
+            properties_url = "http://sputnik.touk.pl/conf/" + get_env("TRAVIS_REPO_SLUG") + "/sputnik-properties?key=" + get_env("api_key")
+            download_file(properties_url, "sputnik.properties")
+            checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + get_env("api_key")
+            download_file(checkstyle_url, "checkstyle.xml")
 
-            logging.info("Downloading checkstyle.xml")
-            checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + os.environ["api_key"]
-            urllib.urlretrieve(checkstyle_url, file_name="checkstyle.xml")
-
-        logging.info("Downloading sputnik.jar")
         sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
-        urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
+        download_file(sputnik_jar_url, "sputnik.jar")
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
 
