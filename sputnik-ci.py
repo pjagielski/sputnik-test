@@ -33,7 +33,7 @@ def is_set_every_required_env_variable():
 
 
 def is_travis_ci():
-    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true':
+    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true' and get_env("TRAVIS_PULL_REQUEST") != "false":
         return True
 
 
