@@ -32,6 +32,11 @@ def get_env(single_env):
         return None
 
 
+def is_travis_ci():
+    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true':
+        return True
+
+
 def download_files_and_run_sputnik():
     if is_travis_ci():
         if get_env("api_key"):
@@ -48,11 +53,6 @@ def download_files_and_run_sputnik():
         urllib.urlretrieve(sputnik_jar_url, filename="sputnik.jar")
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
-
-
-def is_travis_ci():
-    if get_env("CI") == 'true' and get_env("TRAVIS") == 'true':
-        return True
 
 
 def sputnik_ci():
