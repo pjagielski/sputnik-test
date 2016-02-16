@@ -37,6 +37,7 @@ def is_travis_ci():
         logging.warn("Quit travis continuous integration. Check evn variables CI: " + get_env("CI")
                      + ", TRAVIS: " +  get_env("TRAVIS") + ", TRAVIS_PULL_REQUEST: " + get_env("TRAVIS_PULL_REQUEST"))
         return True
+    return False
 
 
 def download_file(url, file_name):
