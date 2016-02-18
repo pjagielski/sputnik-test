@@ -16,6 +16,7 @@ def configure_logger():
 def get_env(single_env):
     try:
         assert (os.environ[single_env])
+        logging.debug("Check env: "+ single_env + " value: " + os.environ[single_env])
         return os.environ[single_env]
     except Exception:
         logging.warn("Problem while reading env variable: " + single_env)
@@ -55,11 +56,11 @@ def download_files_and_run_sputnik():
             properties_url = "http://sputnik.touk.pl/conf/" + get_env("TRAVIS_REPO_SLUG") + "/sputnik-properties?key=" + get_env("api_key")
             download_file(properties_url, "sputnik.properties")
 
-            # checkstyle_url = "http://sputnik.touk.pl/conf/rafalnowak/sputnik-test/checkstyle?key=" + get_env("api_key")
             checkstyle_url = "http://sputnik.touk.pl/conf/" + get_env("TRAVIS_REPO_SLUG") + "/checkstyle?key=" + get_env("api_key")
             download_file(checkstyle_url, "checkstyle.xml")
 
-        sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
+        # sputnik_jar_url = "https://philanthropist.touk.pl/nexus/service/local/artifact/maven/redirect?r=snapshots&g=pl.touk&a=sputnik&c=all&v=LATEST"
+        sputnik_jar_url = "http://repo1.maven.org/maven2/pl/touk/sputnik/1.6.0/sputnik-1.6.0-all.jar"
         download_file(sputnik_jar_url, "sputnik.jar")
 
         subprocess.call(['java', '-jar', 'sputnik.jar', '--conf', 'sputnik.properties', '--pullRequestId', get_env("TRAVIS_PULL_REQUEST")])
