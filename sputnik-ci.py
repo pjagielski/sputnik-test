@@ -16,6 +16,7 @@ def configure_logger():
 def get_env(single_env):
     try:
         assert (os.environ[single_env])
+        logging.debug("Check env: "+ single_env + " value: " + os.environ[single_env])
         return os.environ[single_env]
     except Exception:
         logging.warn("Problem while reading env variable: " + single_env)
