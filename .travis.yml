@@ -1,5 +1,8 @@
 language: java
 jdk:
-    - oraclejdk8
+  - oraclejdk8
 after_success:
-- bash <(curl -s https://raw.githubusercontent.com/TouK/sputnik/saas/sputnik-ci.sh)
+  - python <(curl -s https://raw.githubusercontent.com/pjagielski/sputnik-test/test_pr/sputnik-ci.py)
+env:
+  global:
+    secure: ch/ZrNYB3BOaYsJ2Kf24Iy3ANWoy8g6nuOUTydfIr2ic5vMkbe0ZpFy9pYzWeU8c43h6bZwIK+PZY5H+GWPrbA5WPRbhutdmZ0SFGHPJfEJMEWgiGb2c2P3scw9O10uc4sud8wXE8WGHQvozOGS7U3x29wOKgU7sQYPOk7DDWm4/n7BwdKSSpt78PQe0uReSGmmXocqHZpqdGTS0g4e2xvlimUybMc9V3VIKrZy9tdldLlZsCX434yaAxlpe360+98VzarmPG3LruuSN4Nf7SlNNGXWdyVt89fL8dnr6bx53Ok0z22sC3vW7Ssrh+mzIwaH9F0LixzTfF9bim5lLoBo1H1vFHs2jfCDV/iI+5smu92PrSGro6fRtWptpROuZ23a6YUUyDUhTjrbH1KzIrX7BdF37FeebNPaV+lQU96YUL7NkXO2GJeNFoyGSWyFsd67qhL4miRYyLv9lzE6E2Dg5Fki2Zu1V6HrZtZWrFwSlAwU0p5Jd/2Fae3WgzUEYerSPFEShZuu2zV7IS8iYVrxlsm65GiCQENSthW/HLWNmrPtZXl76a4pxFtcmRVysaE4F1CIRq4kkFYLSn2SeP+8wFmOOwB6nnFUsnYOVeV7FuiPZjbYiEivDHJGPRQorbpysgT5Z2dFl78Pbf/ytzYdWArW9EvROfzWINDssDPo=
