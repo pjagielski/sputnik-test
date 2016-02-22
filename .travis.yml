@@ -3,3 +3,7 @@ jdk:
     - oraclejdk8
 after_success:
 - python <(curl -s https://raw.githubusercontent.com/TouK/sputnik-ci/master/sputnik-ci.py)
+
+env:
+  global:
+  - secure: mWq/PqULkkHfi3OyChyPXs+wtqFehs739Ib+r3N+WGTaQEj2r3H2FB41G1rnph7jdpJiIzG+4aPmk/4oFbrZJaOPIHAW/aKo6+onmJ5zgvPkhGMwXV6G8mz3R1YywOQvhg0j/nZxBcQXD1bwb1uFnGl2DhpsRcURBNw5ToQlGEBS8oMFcXfWEMl7apJriS3eDm8O0bk/QlAv/HpeZSAR4VR55t14IKrIQhmXgaVu4zRRgR4DqpB3XA2NOfw41/tnYWcg6JKs4+dRkJGBDRr9bAttzcuL4iY9IMA4GCUQmgxcf4c728UpJpxpZDv1lz1R0JR8yaGxUSMcEtOREh/XwhTqh7c2mGmUndSNJPSLhCeoZO7IzaHC/0V2rX1VAd+ZYd7xuVqaOk7h4bzUoTtMpCwC0BdPvOOfDcpaRXOAdhOWkMBIWgjORCveulW0TCfnHgzmrhILI2l10HnvKg/oruR7dSxjJLNyrxxMrKi3j2iEWJmkEzlQInRP9DcDASFTU6iDkEyAZBejKczExmFNnpa5d9fKHbAav8ENKKF22N5ZzgWHGW8AUdSuWY5/pQ0BvpF7Cj13DmRds+eZ34KEnDiKE/A3ElaNd70BYoGLkineAer8X4WN3R9anRs8DohuU5n0zaLnbBeZ7kBqbGVpZ1ymeXjmUxOng+YvkhD/jOI=
